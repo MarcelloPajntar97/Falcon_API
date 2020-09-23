@@ -4,7 +4,7 @@ from falcon_multipart.middleware import MultipartMiddleware
 import os
 import sys
 
-class ThingsResource(object):
+class ImageResource(object):
     #def on_get(self, req, resp):
      #   resp.status = falcon.HTTP_200
      #   resp.body = "hello world"
@@ -40,7 +40,7 @@ class ThingsResource(object):
 app = falcon.API(middleware=[MultipartMiddleware()])
 app.req_options.auto_parse_form_urlencoded=True
 
-things = ThingsResource()
+things = ImageResource()
 
-app.add_route('/things', things)
+app.add_route('/api/upload', things)
 serve(app, listen='*:8080')
