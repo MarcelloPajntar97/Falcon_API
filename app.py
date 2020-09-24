@@ -84,8 +84,8 @@ class ImageResource(object):
 
             #resp.status = falcon.HTTP_201
             #resp.body = "hello world"
-        resp.status = falcon.HTTP_200
-        resp.body = to_json
+            resp.status = falcon.HTTP_200
+            resp.body = to_json
 
 #app = falcon.API()
 app = falcon.API(middleware=[MultipartMiddleware()])
