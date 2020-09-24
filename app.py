@@ -80,7 +80,7 @@ class ImageResource(object):
             os.rename(temp_file_path, file_path)
 
             resp.status = falcon.HTTP_200
-            resp.body = to_json
+            resp.body = {"ciao": "ciao"}
 
 #app = falcon.API()
 app = falcon.API(middleware=[MultipartMiddleware()])
