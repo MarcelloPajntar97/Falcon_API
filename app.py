@@ -60,8 +60,7 @@ class ImageResource(object):
             emotion_container.update({ emotion : float("{:.2f}".format(prob * 100))})
 
         to_json= json.dumps(emotion_container)
-        resp.status = falcon.HTTP_200
-        resp.body = to_json
+        
 
         
         
@@ -83,8 +82,10 @@ class ImageResource(object):
             # move it into place.
             os.rename(temp_file_path, file_path)
 
-            resp.status = falcon.HTTP_201
-            resp.body = "hello world"
+            #resp.status = falcon.HTTP_201
+            #resp.body = "hello world"
+        resp.status = falcon.HTTP_200
+        resp.body = to_json
 
 #app = falcon.API()
 app = falcon.API(middleware=[MultipartMiddleware()])
