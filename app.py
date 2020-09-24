@@ -23,7 +23,24 @@ class ImageResource(object):
         emotion_classifier = load_model(emotion_model_path, compile=False)
         EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised", "neutral"]
         input_file = req.get_param('file')
-        frame = cv2.imread(input_file)
+        # Test if the file was uploaded
+        if input_file.filename:
+            # Retrieve filename
+            filename = input_file.filename
+
+            # Define file_path
+            file_path = os.path.join("images", filename)
+
+            # Write to a temporary file to prevent incomplete files
+            # from being used.
+            temp_file_path = file_path + '~'
+
+            open(temp_file_path, 'wb').write(input_file.file.read())
+
+            # Now that we know the file has been fully saved to disk
+            # move it into place.
+            os.rename(temp_file_path, file_path)
+        frame = cv2.imread("/home/marce/Falcon_API/images/" + input_file.filename)
         frame = imutils.resize(frame,width=300)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -61,26 +78,10 @@ class ImageResource(object):
 
         
         
-        # Test if the file was uploaded
-        if input_file.filename:
-            # Retrieve filename
-            filename = input_file.filename
+        
 
-            # Define file_path
-            file_path = os.path.join("images", filename)
-
-            # Write to a temporary file to prevent incomplete files
-            # from being used.
-            temp_file_path = file_path + '~'
-
-            open(temp_file_path, 'wb').write(input_file.file.read())
-
-            # Now that we know the file has been fully saved to disk
-            # move it into place.
-            os.rename(temp_file_path, file_path)
-
-            resp.status = falcon.HTTP_200
-            resp.body = {"ciao": "ciao"}
+        resp.status = falcon.HTTP_200
+        resp.body = to_json
 
 #app = falcon.API()
 app = falcon.API(middleware=[MultipartMiddleware()])
