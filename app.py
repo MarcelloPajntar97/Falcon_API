@@ -12,9 +12,6 @@ import os
 import sys
 
 class ImageResource(object):
-    #def on_get(self, req, resp):
-     #   resp.status = falcon.HTTP_200
-     #   resp.body = "hello world"
     def on_post(self, req, resp):
         """
         POST METHOD
@@ -82,8 +79,6 @@ class ImageResource(object):
             # move it into place.
             os.rename(temp_file_path, file_path)
 
-            #resp.status = falcon.HTTP_201
-            #resp.body = "hello world"
             resp.status = falcon.HTTP_200
             resp.body = to_json
 
