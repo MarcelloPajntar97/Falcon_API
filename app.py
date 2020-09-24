@@ -43,4 +43,4 @@ app.req_options.auto_parse_form_urlencoded=True
 things = ImageResource()
 
 app.add_route('/api/upload', things)
-serve(app, listen='*:8080')
+#serve(app, listen='*:8080')
